@@ -6,29 +6,27 @@ function convertToNumber(value) {
         return null;
     }
     const numberValue = Number(value);
-    if (!isNaN(numberValue)) {
-        return numberValue;
-    } else if (isNaN(numberValue)) {
-        return "Please enter a valid number";
+    if (isNaN(numberValue)) {
+        return null;
     }
-    return null;
+    return numberValue;
 }
 
 function validateAge(value) {
     if (value === null) {
-        alert("Age not specified");
-    } else if (typeof value === "string") {
-        alert(value)
-    } else if (typeof value === "number" && (value <= 150 && value > 0)) {
-        return value
-    } else {
-        alert("Age must be between 1 and 150 years!");
+        alert("Age not specified or invalid number");
+        return null;
     }
+    if (value > 0 && value <= 150) {
+        return value;
+    }
+    alert("Age must be between 1 and 150 years!");
+    return null;
 }
 
 function checkUserAge(age) {
     if (!age) {
-        return
+        return;
     }
     if (age >= 18) {
         alert("Access granted. Enjoy watching!")
