@@ -1,52 +1,45 @@
 "use strict";
 
-
-function convertToNumber(value) {
-    if (value === null || value.trim() === "") {
-        return null;
-    }
-    const numberValue = Number(value);
-    if (!isNaN(numberValue)) {
-        return numberValue;
-    }
-    return null;
-}
-
-function validateOriginalPrice(price) {
-    if (price === null) {
-        alert("The price should be a number.");
-        return false
-    }
-    if (price < 0) {
-        alert("The price should be a positive number");
-        return false
-    }
-    return true;
-}
-
-function validateDiscount(discount) {
-    if (discount === null) {
-        alert("The discount should be a number.");
-        return false
-    }
-    if (discount < 0 || discount > 100) {
-        alert("The discount must be a number between 0 and 100.");
-        return false
-    }
-    return true;
-}
-
-function calculateDiscount(price, discount) {
-    return price - (price * discount) / 100;
-}
-
 const initialPriceString = prompt("Please enter an initial price: ");
-const initialPrice = convertToNumber(initialPriceString);
+
+let initialPrice = null;
+if (initialPriceString !== null && initialPriceString.trim() !== "") {
+    const numberValue = Number(initialPriceString);
+    if (!isNaN(numberValue)) {
+        initialPrice = numberValue;
+    }
+}
+
+let isPriceValid = false;
+if (initialPrice === null) {
+    alert("The price should be a number.")
+} else if (initialPrice < 0) {
+    alert("The price should be a positive number");
+} else {
+    isPriceValid = true;
+}
 
 const discountPercentString = prompt("Please enter a discount: ");
-const discount = convertToNumber(discountPercentString);
 
-if (validateOriginalPrice(initialPrice) && validateDiscount(discount)) {
-    const finalPrice = calculateDiscount(initialPrice, discount);
+let discount = null;
+if (discountPercentString !== null && discountPercentString.trim() !== "") {
+    const numberValue = Number(discountPercentString);
+    if (!isNaN(numberValue)) {
+        discount = numberValue;
+    }
+}
+
+let isDiscountValid = false;
+if (discount === null) {
+    alert("The discount should be a number.");
+} else if (discount < 0 || discount > 100) {
+    alert("The discount must be a number between 0 and 100.");
+} else {
+    isDiscountValid = true;
+}
+
+
+if (isPriceValid && isDiscountValid) {
+    const finalPrice = initialPrice - (initialPrice * discount) / 100;
     alert(`Original price: ${initialPrice} UAH, discount: ${discount}%. Discounted price: ${finalPrice} UAH.`)
 }
