@@ -19,7 +19,7 @@ function validateString(name) {
     return name.trim();
 }
 
-function convertStringToLikesOrDislikes(value) {
+function convertStringToBoolean(value) {
     if (typeof value !== "string" || value.trim() === "") {
         return null;
     }
@@ -28,7 +28,7 @@ function convertStringToLikesOrDislikes(value) {
     if (!allowedValues.includes(validatedValue)) {
         return null;
     }
-    return validatedValue === "yes" ? "likes" : "dislikes";
+    return validatedValue === "yes";
 }
 
 function showMessage(userName, userAge, userCity, loveToJS) {
@@ -42,14 +42,19 @@ function showMessage(userName, userAge, userCity, loveToJS) {
     if (!userCity) {
         invalidFields.push("City")
     }
-    if (!loveToJS) {
-        invalidFields.push("Answer about JavaScript (Yes/No)")
+    if (loveToJS === null) {
+        invalidFields.push("Answer about JavaScript (Yes/No)");
     }
     if (invalidFields.length > 0) {
         alert(`Please fix the following fields: ${invalidFields.join(", ")}`);
         return;
     }
-    alert(`Hello ${userName}! You are ${userAge} age old, you are from ${userCity} city. Attitude toward JavaScript: ${loveToJS} it.`);
+    if (loveToJS) {
+        alert(`Hello ${userName}! You are ${userAge} years old, you are from ${userCity} city. Attitude toward JavaScript: likes it.`);
+    } else {
+        alert(`Hello ${userName}! You are ${userAge} years old, you are from ${userCity} city. Attitude toward JavaScript: dislikes it.`);
+    }
+
 }
 
 
@@ -63,6 +68,6 @@ const userCityInitial = prompt("Enter the city where you live: ");
 const userCity = validateString(userCityInitial);
 
 const loveToJS = prompt("Do you like Javascript? \n Please, enter only 'Yes' or 'No' ");
-const isLove = convertStringToLikesOrDislikes(loveToJS);
+const isLove = convertStringToBoolean(loveToJS);
 
 showMessage(userName, userAge, userCity, isLove);
