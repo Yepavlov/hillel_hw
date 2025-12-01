@@ -41,10 +41,10 @@ let orderDescription = "";
 if (!order.isPaid) {
     orderDescription = "Order is not paid"
 } else {
-    if (deliveryOrderBool) {
-        orderDescription = "Paid order with delivery";
-    } else if (isBigOrder) {
+    if (isBigOrder) {
         orderDescription = "High-value paid order";
+    } else if (deliveryOrderBool) {
+        orderDescription = "Paid order with delivery";
     } else {
         orderDescription = "Paid order without delivery";
     }
