@@ -14,7 +14,7 @@ function showMessage(isDiscountApplied) {
 }
 
 // requirements have several meanings, so they can also be understood in this way (cartTotal >= 100 && hasPromoCode) || isBlackFriday
-let isDiscountApplied = cartTotal >= 100 && (hasPromoCode || isBlackFriday);
+let isDiscountApplied = (cartTotal >= 100 && hasPromoCode) || isBlackFriday;
 showMessage(isDiscountApplied);
 
 const noDiscount = !isDiscountApplied;
