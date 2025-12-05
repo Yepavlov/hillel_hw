@@ -1,0 +1,22 @@
+{
+  "name": "hillel_hw",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yepavlov/hillel_hw.git"
+  },
+  "author": "Yevhenii Pavlov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yepavlov/hillel_hw/issues"
+  },
+  "homepage": "https://github.com/Yepavlov/hillel_hw#readme",
+  "devDependencies": {
+    "eslint": "^9.39.1"
+  }
+}
