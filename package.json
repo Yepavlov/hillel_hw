@@ -2,9 +2,11 @@
   "name": "hillel_hw",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "js/script.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "lint": "eslint .",
+    "format": "prettier --write \"**/*.js\""
   },
   "repository": {
     "type": "git",
@@ -17,6 +19,9 @@
   },
   "homepage": "https://github.com/Yepavlov/hillel_hw#readme",
   "devDependencies": {
-    "eslint": "^9.39.1"
+    "@eslint/js": "^9.39.1",
+    "eslint": "^9.39.1",
+    "globals": "^16.5.0",
+    "prettier": "^3.7.4"
   }
 }
