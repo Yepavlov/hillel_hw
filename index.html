@@ -4,9 +4,21 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="./css/style.css">
-    <script src="./js/script.js" defer></script>
+    <script src="js/app.js" defer type="module"></script>
 </head>
 <body>
+<select id="userSelect">
+    <option value="" disabled selected>Select user...</option>
+</select>
 
+<select id="albumSelect" disabled>
+    <option value="" disabled selected>Select album...</option>
+</select>
+
+<button id="loadBtn" disabled>Load photos</button>
+
+<div id="status"></div>
+
+<div id="photos" style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px;"></div>
 </body>
 </html>
