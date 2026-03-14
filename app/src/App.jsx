@@ -1,5 +1,7 @@
+import EventLogger from './components/EventLogger';
+
 function App() {
-  return <>Hello new App</>;
+  return <EventLogger />;
 }
 
 export default App;
