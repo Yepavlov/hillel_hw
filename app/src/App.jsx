@@ -1,7 +1,7 @@
-import EventLogger from './components/EventLogger';
+import PostCatalog from './components/PostCatalog';
 
 function App() {
-  return <EventLogger />;
+  return <PostCatalog />;
 }
 
 export default App;
