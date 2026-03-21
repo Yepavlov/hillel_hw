@@ -1,15 +1,13 @@
 "use strict";
 
-import Model from "./notes/Model.js";
-import View from "./notes/View.js";
-import Controller from "./notes/Controller.js";
-import {noteSchema} from "./notes/schemas.js";
+import UsersModel from "./users/Model.js";
+import UsersView from "./users/View.js";
+import UsersController from "./users/Controller.js";
 
+const url = 'https://jsonplaceholder.typicode.com/users'
 
 document.addEventListener('DOMContentLoaded', () => {
-    const model = new Model(noteSchema, "notes");
-
-    const view = new View();
-
-    const controller = new Controller(model, view);
+    const model = new UsersModel(url);
+    const view = new UsersView();
+    const app = new UsersController(model, view);
 });

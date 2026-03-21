@@ -1,108 +1,124 @@
-Ідея
-Зробити невеликий застосунок для створення та керування короткими нотатками:
+ДЗ: CRUD Users (Single Page) через JSONPlaceholder + MVC + Bootstrap
+Мета: зробити односторінковий застосунок, який показує таблицю користувачів і дозволяє створювати / редагувати /
+видаляти користувачів через JSONPlaceholder API, використовуючи Promises, async/await, try/catch, класи і MVC-підхід.
 
-додати нотатку
-відмітити як “важливо”
-видалити
-очистити всі
-зберігати в localStorage
+Технічні вимоги
+API: https://jsonplaceholder.typicode.com/users
 
-1) Що студент має реалізувати
-   Функціонал (MVP)
-   Створення нотатки
-   Поля:
-   title (обов’язково, мінімум 3 символи)
-   category (одна з: work, study, personal)
-   Після submit нотатка додається в список.
-   Перемикач “Важливо”
-   Кнопка Mark important / Unmark important на кожній нотатці.
-   Важлива нотатка візуально виділяється (класом CSS).
-   Видалення однієї нотатки
-   Кнопка Delete на кожній карточці.
-   Очистити всі
-   Кнопка Clear all.
-   Якщо список порожній — показати повідомлення: No notes yet.
-   Персистентність
-   Після перезавантаження сторінки нотатки мають залишатись.
-2) Обов’язкова структура (спрощене MVC)
-   Структура файлів:
+Стилі: тільки Bootstrap (CDN)
 
-index.html
-style.css
-js/app.js
-js/notes/Model.js
-js/notes/View.js
-js/notes/Controller.js
-Model
-Відповідає за:
+Одна сторінка: index.html + ваші js файли (можна 1 або кілька)
 
-масив нотаток
-localStorage
-CRUD-операції:
-create(data)
-readAll()
-toggleImportant(id)
+Без фреймворків: тільки ванільний JS
+
+Обов’язково:
+
+Promises (мінімум 1 місце з .then/.catch/.finally)
+async/await
+try/catch у всіх async-операціях
+класи для Model, View, Controller (MVC)
+Модальні вікна Bootstrap для create/edit/delete confirm
+Функціонал
+
+1) Відображення списку
+   При завантаженні сторінки: GET /users
+   Відрендерити таблицю (Bootstrap table) з колонками:
+   ID
+   Name
+   Email
+   Phone
+   Company
+   Actions (Edit, Delete)
+2) Створення користувача (Create)
+   Кнопка “Add user”
+   Відкриває модалку з формою:
+   name (required)
+   email (required)
+   phone (optional)
+   company.name (optional)
+   При submit:
+   Валідація (мінімум required поля)
+   POST /users
+   Успіх → додати користувача в локальний масив + оновити таблицю
+   Помилка → показати повідомлення в модалці/alert
+3) Редагування (Update)
+   Кнопка Edit в рядку таблиці
+   Відкриває модалку з формою, заповненою даними користувача
+   При submit:
+   PUT /users/:id (або PATCH — але краще PUT для чіткості)
+   Успіх → оновити користувача в локальному масиві + оновити таблицю
+4) Видалення (Delete)
+   Кнопка Delete в рядку таблиці
+   Відкриває confirm-модалку: “Are you sure you want to delete user X?”
+   При підтвердженні:
+   DELETE /users/:id
+   Успіх → видалити з локального масиву + оновити таблицю
+5) UX-вимоги
+   Під час запитів показувати loading стан (наприклад, disable кнопок + spinner в таблиці або в модалці)
+   Помилки показувати як Bootstrap alert (на сторінці або в модалці)
+   Модалки після успіху закривати і чистити форму/стан
+   Архітектура (MVC) — обов’язково класами
+   Model (UsersModel)
+   Відповідає за:
+
+HTTP-запити (fetch)
+Збереження локального стану this.users
+Методи:
+getAll()
+create(userData)
+update(id, userData)
 delete(id)
-clearAll()
-View
+Вимога по Promises:
+
+Хоча більшість зробите через async/await — мінімум 1 метод зробіть у стилі:
+
+return fetch(...).then(...).catch(...).finally(...)
+View (UsersView)
 Відповідає за:
 
-рендер списку
-рендер однієї карточки
-очищення контейнера
-показ No notes yet
-Controller
+Рендер таблиці
+Відкриття/закриття модалок
+Отримання даних з форм
+Показ alert’ів, loading
+Методи (приклад):
+
+renderTable(users)
+openCreateModal() / openEditModal(user) / openDeleteModal(user)
+getFormData()
+setLoading(isLoading)
+showError(message)
+Controller (UsersController)
 Відповідає за:
 
-підписку на submit/click
-виклики Model
-оновлення View
-ініціалізацію при DOMContentLoaded
+Ініціалізацію
+Підписки на події (click/submit)
+Виклики model + оновлення view
+try/catch навколо кожної async-операції
+Методи (приклад):
 
-3) Модель даних
-   Copy code
-   {
-   id: Number,
-   title: String,
-   category: "work" | "study" | "personal",
-   important: Boolean,
-   createdAt: String // ISO date
-   }
-4) Мінімальна HTML-розмітка (що має бути)
-   Форма:
-   input title
-   select category
-   кнопка Add note
-   Контейнер списку:
-
-<div id="notesList"></div>
-Кнопка:
-Clear all
-Блок/текст:
-No notes yet (показується, коли порожньо)
-5) Валідація (обов’язково)
-title.trim().length >= 3
-category тільки з дозволених значень
-При невалідних даних:
-нотатка не створюється
-вивести просту помилку під формою або alert
-6) Технічні вимоги
-Використовувати Бутстрап
-ES Modules (import/export)
-Event delegation для кнопок у списку
-Код має бути розбитий по класах: Model/View/Controller
-Без дублювання DOM-логіки в Controller (рендер тільки у View)
-7) Acceptance Criteria (критерії здачі)
- Можна додати нотатку
- Можна видалити конкретну нотатку
- Можна переключити important
- Працює Clear all
- Дані зберігаються після reload
- Є повідомлення No notes yet при порожньому списку
- Є базова валідація
- Проєкт має MVC-структуру
-8) Бонус (за бажанням, +level)
-Фільтр All / Important / Category
-Сортування “новіші зверху/знизу”
-Лічильник: Total: X | Important: Y
-Кнопка Edit title (просте редагування через prompt/modal)
+init()
+handleAddClick()
+handleCreateSubmit()
+handleEditClick(id)
+handleEditSubmit()
+handleDeleteClick(id)
+handleDeleteConfirm()
+Валідація (мінімум)
+name — не пустий
+email — не пустий + проста перевірка на @ (або regex)
+При помилці: підсвітити інпути bootstrap-класом is-invalid + текст під полем
+Критерії приймання
+Одна сторінка, таблиця відображається після завантаження
+Create/Edit/Delete працюють через модалки
+DELETE має підтвердження в модалці
+MVC реалізовано класами, логіка не “в каші”
+Є async/await + try/catch
+Є Promises (.then/.catch/.finally) хоча б в одному місці
+Bootstrap-only стилізація
+Є loading та error стани
+Додатково (за бажанням, але +бал)
+Пошук по name/email (фільтр над таблицею)
+Сортування по name (клік по заголовку колонки)
+Toast замість alert
+Пагінація (хоча б локальна)
+Файлова структура 
