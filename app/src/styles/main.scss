@@ -1,0 +1,20 @@
+$primary-color: #0d6efd;
+$background-color: #f8f9fa;
+
+body {
+  background-color: $background-color;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.product-form {
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  }
+
+  .form-label {
+    font-weight: 500;
+    color: #495057;
+  }
+}
